@@ -17,7 +17,7 @@ The **Hy-FLY** system solves this critical problem using an **Electro-Mechanical
 ## 🏗️ System Architecture
 
 ### Main Simulink Block Diagram
-![Main Block Diagram](results/Main_blockdiagram.png)
+![Main Block Diagram](result_plots/Main_blockdiagram.png)
 
 The system consists of **7 interconnected subsystems**, each implementing a specific physical law:
 
@@ -78,37 +78,37 @@ $$P_{injected} = \frac{T_{carrier} \times \omega_{carrier}}{S_{base}}$$
 ### Grid Without Flywheel (Baseline)
 > Implements the bare Swing Equation — no protection, no injection.
 
-![Grid Without Flywheel](results/without_flywheel.png)
+![Grid Without Flywheel](result_plots/without_flywheel.png)
 
 ### Grid With Flywheel (Protected)
 > Same Swing Equation, but with the flywheel's injected power port (`P_inj`) added to offset the generation loss.
 
-![Grid With Flywheel](results/with_flywheel.png)
+![Grid With Flywheel](result_plots/with_flywheel.png)
 
 ### Controller (PD + Synthetic Inertia)
 > The "brain" of the system. Constantly monitors grid frequency and calculates the exact rescue torque command.
 
-![Controller](results/controller.png)
+![Controller](result_plots/controller.png)
 
 ### Planetary Gear (EMDDU)
 > Mechanical transmission that splits the battery motor's torque between braking the flywheel and pushing the generator.
 
-![Planetary Gear](results/Plannetary_gear.png)
+![Planetary Gear](result_plots/Plannetary_gear.png)
 
 ### Flywheel (Kinetic Energy Storage)
 > A massive steel wheel spinning at high speed. When braked, its kinetic energy is mechanically converted to electrical power.
 
-![Flywheel](results/flywheel.png)
+![Flywheel](result_plots/flywheel.png)
 
 ### PMSG (Grid Generator — MG1)
 > Converts mechanical power (Torque × Speed) into electrical power injected to the grid.
 
-![PMSG](results/PMSG.png)
+![PMSG](result_plots/PMSG.png)
 
 ### PMSM + Battery (Control Motor — MG2)
 > The battery-powered motor that applies torque to the planetary ring gear. Uses minimal energy for maximum mechanical leverage.
 
-![PMSM Battery](results/PMSM.png)
+![PMSM Battery](result_plots/PMSM.png)
 
 ---
 
@@ -117,42 +117,42 @@ $$P_{injected} = \frac{T_{carrier} \times \omega_{carrier}}{S_{base}}$$
 ### Grid Frequency Response (The Proof)
 > A 5% generator trip occurs at t=2s. The yellow baseline crashes toward 47.5 Hz, while the blue Hy-FLY system arrests the decline near 49 Hz.
 
-![Grid Frequency](results/grid_freequency.png)
+![Grid Frequency](result_plots/grid_freequency.png)
 
 ### Controller Torque Command (T_MG2)
 > The controller's real-time decision. Notice the instant spike at t=2s — this is the Synthetic Inertia (Kd) component reacting to the rapid Rate of Change of Frequency (RoCoF).
 
-![Controller Torque](results/scopeMg2.png)
+![Controller Torque](result_plots/scopeMg2.png)
 
 ### PMSG Generator Power Injected to Grid
 > Electrical power converted from the flywheel's kinetic energy and blasted into the grid to offset the generation loss.
 
-![PMSG Power](results/scopepmsgpower.png)
+![PMSG Power](result_plots/scopepmsgpower.png)
 
 ### Flywheel Speed (RPM)
 > The flywheel decelerates as its kinetic energy is extracted. This physical deceleration is the source of the rescue power.
 
-![Flywheel RPM](results/scopeflywheelrpm.png)
+![Flywheel RPM](result_plots/scopeflywheelrpm.png)
 
 ### Flywheel Stored Kinetic Energy
 > Shows the total kinetic energy (½Jω²) stored in the flywheel decreasing as energy is transferred to the grid.
 
-![Flywheel Energy](results/scopeFWenergy.png)
+![Flywheel Energy](result_plots/scopeFWenergy.png)
 
 ### Battery State of Charge (SOC %)
 > The battery SOC barely drops, proving that the flywheel provides the bulk rescue energy while the battery only provides small control energy.
 
-![Battery SOC](results/scopesoc.png)
+![Battery SOC](result_plots/scopesoc.png)
 
 ### Battery Current (I_bat)
 > Current drawn from the battery to power the PMSM control motor.
 
-![Battery Current](results/scopeibat.png)
+![Battery Current](result_plots/scopeibat.png)
 
 ### PMSM Motor Power (Battery Side)
 > Power consumed by the battery motor (MG2) to control the planetary gear ring.
 
-![PMSM Power](results/scopepmsmpower.png)
+![PMSM Power](result_plots/scopepmsmpower.png)
 
 ---
 
@@ -196,7 +196,7 @@ This single command loads parameters → builds the Simulink model → runs the 
 ## 📁 File Structure
 
 ```
-HyFLY-IITG/
+integratedflywheel_PMSG_system/
 ├── README.md                  # This file
 ├── .gitignore                 # Excludes MATLAB cache files
 ├── init_params.m              # All simulation parameters
@@ -205,7 +205,7 @@ HyFLY-IITG/
 ├── plot_results.m             # Standalone plotting (after manual sim)
 ├── HyFLY_IITG.slx            # Main Simulink model
 ├── Int_Flywheel_Aug_14.slx    # Development version
-└── results/                   # Block diagrams & simulation plots
+└── result_plots/              # Block diagrams & simulation plots
     ├── Main_blockdiagram.png
     ├── controller.png
     ├── flywheel.png
