@@ -171,7 +171,7 @@ $$P_{injected} = \frac{T_{carrier} \times \omega_{carrier}}{S_{base}}$$
 | `V_bat` | 48 V | Battery voltage |
 | `S_base` | 10 MVA | System base power |
 | `dP_event1` | -0.05 pu | Generator trip (5% loss at t=2s) |
-| `dP_event2` | +0.03 pu | Solar ramp recovery (at t=12s) |
+| `dP_event2` | +0.05 pu | Solar ramp recovery (at t=12s) |
 
 ---
 
