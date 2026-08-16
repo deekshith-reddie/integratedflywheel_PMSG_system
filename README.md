@@ -235,12 +235,10 @@ integratedflywheel_PMSG_system/
 
 ## 📚 Requirements
 
-- MATLAB R2020a or later (tested on R2025a)
+- MATLAB R2025a
 - Simulink
-- No additional toolboxes required
-
 ---
 
 ## 📄 License
 
-This project is developed for academic research purposes at the Indian Institute of Technology Guwahati (IITG).
+This project is developed for academic research purposes at Indian Institute of Technology Guwahati (IITG) and Indian Institute of Technology(Indian School of Mines) Dhanbad (IIT-ISM).
