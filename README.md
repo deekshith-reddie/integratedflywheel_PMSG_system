@@ -1,6 +1,6 @@
 # ⚡ Hy-FLY: Hybrid Flywheel-Based Synthetic Inertia for Grid Frequency Stabilization
 
-> **Institution:** Indian Institute of Technology(Indian School of Mines)-Dhanbad (IIT-ISM)
+> **Institution:** Indian Institute of Technology(Indian School of Mines)-Dhanbad (IIT-ISM)      
 > **Domain:** Power Systems · Renewable Energy Integration · Energy Storage  
 > **Tools:** MATLAB R2025a · Simulink
 
