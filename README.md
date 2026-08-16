@@ -23,7 +23,7 @@ The system consists of **7 interconnected subsystems**, each implementing a spec
 
 | Block | Physical Role | Core Equation |
 |-------|--------------|---------------|
-| `Gen_Trip` + `Solar_Ramp` | Disturbance source | Step inputs at t=2s and t=12s |
+| `Gen_Trip` + `Solar_Ramp` | Disturbance source | Step inputs at t=10s and t=50s |
 | `Grid_Without_Flywheel` | Baseline grid (no protection) | Swing Equation |
 | `Grid_With_Flywheel` | Protected grid (with injection) | Swing Equation + P_inj |
 | `Controller` | Brain — PD + Synthetic Inertia | T = Kp·Δf + Kd·(dΔf/dt) |
@@ -115,12 +115,12 @@ $$P_{injected} = \frac{T_{carrier} \times \omega_{carrier}}{S_{base}}$$
 ## 📊 Simulation Results
 
 ### Grid Frequency Response (The Proof)
-> A 5% generator trip occurs at t=2s. The yellow baseline crashes toward 47.5 Hz, while the blue Hy-FLY system arrests the decline near 49 Hz.
+> A 5% generator trip occurs at t=10s. The yellow baseline crashes toward 47.5 Hz, while the blue Hy-FLY system arrests the decline near 49 Hz.
 
 ![Grid Frequency](grid_freequency.png)
 
 ### Controller Torque Command (T_MG2)
-> The controller's real-time decision. Notice the instant spike at t=2s — this is the Synthetic Inertia (Kd) component reacting to the rapid Rate of Change of Frequency (RoCoF).
+> The controller's real-time decision. Notice the instant spike at t=10s — this is the Synthetic Inertia (Kd) component reacting to the rapid Rate of Change of Frequency (RoCoF).
 
 ![Controller Torque](scopeMg2.png)
 
@@ -170,8 +170,8 @@ $$P_{injected} = \frac{T_{carrier} \times \omega_{carrier}}{S_{base}}$$
 | `T_max` | 500 Nm | Motor torque saturation limit |
 | `V_bat` | 48 V | Battery voltage |
 | `S_base` | 10 MVA | System base power |
-| `dP_event1` | -0.05 pu | Generator trip (5% loss at t=2s) |
-| `dP_event2` | +0.05 pu | Solar ramp recovery (at t=12s) |
+| `dP_event1` | -0.05 pu | Generator trip (5% loss at t=10s) |
+| `dP_event2` | +0.05 pu | Solar ramp recovery (at t=50s) |
 
 ---
 
