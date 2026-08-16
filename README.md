@@ -17,7 +17,7 @@ The **Hy-FLY** system solves this critical problem using an **Electro-Mechanical
 ## 🏗️ System Architecture
 
 ### Main Simulink Block Diagram
-![Main Block Diagram](result_plots/Main_blockdiagram.png)
+![Main Block Diagram](Main_blockdiagram.png)
 
 The system consists of **7 interconnected subsystems**, each implementing a specific physical law:
 
@@ -78,37 +78,37 @@ $$P_{injected} = \frac{T_{carrier} \times \omega_{carrier}}{S_{base}}$$
 ### Grid Without Flywheel (Baseline)
 > Implements the bare Swing Equation — no protection, no injection.
 
-![Grid Without Flywheel](result_plots/without_flywheel.png)
+![Grid Without Flywheel](without_flywheel.png)
 
 ### Grid With Flywheel (Protected)
 > Same Swing Equation, but with the flywheel's injected power port (`P_inj`) added to offset the generation loss.
 
-![Grid With Flywheel](result_plots/with_flywheel.png)
+![Grid With Flywheel](with_flywheel.png)
 
 ### Controller (PD + Synthetic Inertia)
 > The "brain" of the system. Constantly monitors grid frequency and calculates the exact rescue torque command.
 
-![Controller](result_plots/controller.png)
+![Controller](controller.png)
 
 ### Planetary Gear (EMDDU)
 > Mechanical transmission that splits the battery motor's torque between braking the flywheel and pushing the generator.
 
-![Planetary Gear](result_plots/Plannetary_gear.png)
+![Planetary Gear](Plannetary_gear.png)
 
 ### Flywheel (Kinetic Energy Storage)
 > A massive steel wheel spinning at high speed. When braked, its kinetic energy is mechanically converted to electrical power.
 
-![Flywheel](result_plots/flywheel.png)
+![Flywheel](flywheel.png)
 
 ### PMSG (Grid Generator — MG1)
 > Converts mechanical power (Torque × Speed) into electrical power injected to the grid.
 
-![PMSG](result_plots/PMSG.png)
+![PMSG](PMSG.png)
 
 ### PMSM + Battery (Control Motor — MG2)
 > The battery-powered motor that applies torque to the planetary ring gear. Uses minimal energy for maximum mechanical leverage.
 
-![PMSM Battery](result_plots/PMSM.png)
+![PMSM Battery](PMSM.png)
 
 ---
 
@@ -117,42 +117,42 @@ $$P_{injected} = \frac{T_{carrier} \times \omega_{carrier}}{S_{base}}$$
 ### Grid Frequency Response (The Proof)
 > A 5% generator trip occurs at t=2s. The yellow baseline crashes toward 47.5 Hz, while the blue Hy-FLY system arrests the decline near 49 Hz.
 
-![Grid Frequency](result_plots/grid_freequency.png)
+![Grid Frequency](grid_freequency.png)
 
 ### Controller Torque Command (T_MG2)
 > The controller's real-time decision. Notice the instant spike at t=2s — this is the Synthetic Inertia (Kd) component reacting to the rapid Rate of Change of Frequency (RoCoF).
 
-![Controller Torque](result_plots/scopeMg2.png)
+![Controller Torque](scopeMg2.png)
 
 ### PMSG Generator Power Injected to Grid
 > Electrical power converted from the flywheel's kinetic energy and blasted into the grid to offset the generation loss.
 
-![PMSG Power](result_plots/scopepmsgpower.png)
+![PMSG Power](scopepmsgpower.png)
 
 ### Flywheel Speed (RPM)
 > The flywheel decelerates as its kinetic energy is extracted. This physical deceleration is the source of the rescue power.
 
-![Flywheel RPM](result_plots/scopeflywheelrpm.png)
+![Flywheel RPM](scopeflywheelrpm.png)
 
 ### Flywheel Stored Kinetic Energy
 > Shows the total kinetic energy (½Jω²) stored in the flywheel decreasing as energy is transferred to the grid.
 
-![Flywheel Energy](result_plots/scopeFWenergy.png)
+![Flywheel Energy](scopeFWenergy.png)
 
 ### Battery State of Charge (SOC %)
 > The battery SOC barely drops, proving that the flywheel provides the bulk rescue energy while the battery only provides small control energy.
 
-![Battery SOC](result_plots/scopesoc.png)
+![Battery SOC](scopesoc.png)
 
 ### Battery Current (I_bat)
 > Current drawn from the battery to power the PMSM control motor.
 
-![Battery Current](result_plots/scopeibat.png)
+![Battery Current](scopeibat.png)
 
 ### PMSM Motor Power (Battery Side)
 > Power consumed by the battery motor (MG2) to control the planetary gear ring.
 
-![PMSM Power](result_plots/scopepmsmpower.png)
+![PMSM Power](scopepmsmpower.png)
 
 ---
 
@@ -198,30 +198,28 @@ This single command loads parameters → builds the Simulink model → runs the 
 ```
 integratedflywheel_PMSG_system/
 ├── README.md                  # This file
-├── .gitignore                 # Excludes MATLAB cache files
 ├── init_params.m              # All simulation parameters
 ├── build_simulink_only.m      # Programmatic Simulink model builder
 ├── run_hyfly.m                # All-in-one: build + simulate + plot
 ├── plot_results.m             # Standalone plotting (after manual sim)
 ├── HyFLY_IITG.slx            # Main Simulink model
 ├── Int_Flywheel_Aug_14.slx    # Development version
-└── result_plots/              # Block diagrams & simulation plots
-    ├── Main_blockdiagram.png
-    ├── controller.png
-    ├── flywheel.png
-    ├── Plannetary_gear.png
-    ├── PMSG.png
-    ├── PMSM.png
-    ├── with_flywheel.png
-    ├── without_flywheel.png
-    ├── grid_freequency.png
-    ├── scopeMg2.png
-    ├── scopepmsgpower.png
-    ├── scopeflywheelrpm.png
-    ├── scopeFWenergy.png
-    ├── scopesoc.png
-    ├── scopeibat.png
-    └── scopepmsmpower.png
+├── Main_blockdiagram.png      # System architecture diagram
+├── controller.png             # Controller subsystem
+├── flywheel.png               # Flywheel subsystem
+├── Plannetary_gear.png        # Planetary gear subsystem
+├── PMSG.png                   # PMSG generator subsystem
+├── PMSM.png                   # PMSM battery motor subsystem
+├── with_flywheel.png          # Grid with flywheel subsystem
+├── without_flywheel.png       # Grid without flywheel subsystem
+├── grid_freequency.png        # Frequency comparison result
+├── scopeMg2.png               # Controller torque result
+├── scopepmsgpower.png         # Generator power result
+├── scopeflywheelrpm.png       # Flywheel RPM result
+├── scopeFWenergy.png          # Flywheel energy result
+├── scopesoc.png               # Battery SOC result
+├── scopeibat.png              # Battery current result
+└── scopepmsmpower.png         # PMSM motor power result
 ```
 
 ---
